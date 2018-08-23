@@ -10,4 +10,4 @@ before_script:
 
 script:
   go test -v -covermode=count -coverprofile=coverage.out ./...
-- bingoveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
+  goveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
