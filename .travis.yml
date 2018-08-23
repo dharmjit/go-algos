@@ -8,5 +8,5 @@ before_script:
 - go get github.com/mattn/goveralls
 
 script:
-  go test -v -covermode=count -coverprofile=coverage.out ./..
+  go test -v -covermode=count -coverprofile=coverage.out ./...
 - bingoveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
