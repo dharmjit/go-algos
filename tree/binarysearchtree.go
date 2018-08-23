@@ -40,3 +40,46 @@ func (n *node) find(v int) bool {
 		return n.Right.find(v)
 	}
 }
+
+func (n *node) replaceNode(parent *node, replacementNode *node) error {
+	if n == parent.Left {
+		parent.Left = replacementNode
+		return nil
+	}
+	parent.Right = replacementNode
+	return nil
+}
+
+func (n *node) findMax(parent *node) (*node, *node) {
+	if n == nil {
+		return nil, parent
+	}
+	if n.Right == nil {
+		return n, parent
+	}
+	return n.Right.findMax(n)
+}
+
+func (n *node) delete(v int, parent *node) error {
+	switch {
+	case v < n.Value:
+		return n.Left.delete(v, n)
+	case v > n.Value:
+		return n.Right.delete(v, n)
+	default:
+		if n.Left == nil && n.Right == nil {
+			n.replaceNode(parent, nil)
+			return nil
+		}
+		if n.Left == nil {
+			n.replaceNode(parent, n.Right)
+			return nil
+		}
+		if n.Right == nil {
+			n.replaceNode(parent, n.Left)
+		}
+		replacement, replParent := n.Left.findMax(n)
+		n.Value = replacement.Value
+		return replacement.delete(replacement.Value, replParent)
+	}
+}
