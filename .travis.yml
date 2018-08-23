@@ -1,0 +1,13 @@
+matrix:
+  include:
+    - os: linux
+      go: 1.10.x
+      language: go
+
+before_script:
+- go get golang.org/x/tools/cmd/cover
+- go get github.com/mattn/goveralls
+
+script:
+  go test -v -covermode=count -coverprofile=coverage.out;
+  goveralls -service=travis-ci -coverprofile=coverage.out || true;
