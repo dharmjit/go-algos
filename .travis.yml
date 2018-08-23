@@ -1,8 +1,9 @@
-language: go
-go:
-  - 1.10
-env:
-  - "PATH=/home/travis/gopath/bin:$PATH"
+matrix:
+  include:
+    - os: linux
+      go: 1.10.x
+      language: go
+
 before_script:
 - go get golang.org/x/tools/cmd/cover
 - go get github.com/mattn/goveralls
