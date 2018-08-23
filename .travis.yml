@@ -1,13 +1,12 @@
-matrix:
-  include:
-    - os: linux
-      go: 1.10.x
-      language: go
-
+language: go
+go:
+  - 1.10
+env:
+  - "PATH=/home/travis/gopath/bin:$PATH"
 before_script:
 - go get golang.org/x/tools/cmd/cover
 - go get github.com/mattn/goveralls
 
 script:
-  go test -v -covermode=count -coverprofile=coverage.out;
-  goveralls -service=travis-ci -coverprofile=coverage.out || true;
+  go test -v -covermode=count -coverprofile=coverage.out ./..
+- bingoveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
