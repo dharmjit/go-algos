@@ -9,5 +9,5 @@ before_script:
 - go get github.com/mattn/goveralls
 
 script:
-  go test -v -covermode=count -coverprofile=coverage.out ./...
-  goveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
+  go test -v -covermode=count -coverprofile=coverage.out ./...;
+  goveralls -service=travis-ci -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN;
