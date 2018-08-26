@@ -2,6 +2,7 @@ package list
 
 type list struct {
 	head *element
+	size int
 }
 
 type element struct {
@@ -11,6 +12,7 @@ type element struct {
 
 func (l *list) pushFront(v int) error {
 	l.head = &element{v, l.head}
+	l.size++
 	return nil
 }
 
@@ -19,19 +21,32 @@ func (l *list) popFront() int {
 	tmp := e
 	e = nil
 	l.head = tmp.next
+	l.size--
 	return tmp.value
 
 }
 func (l *list) pushBack(v int) error {
+	tmp := l.head
+	for tmp.next != nil {
+		tmp = tmp.next
+	}
+	tmp.next = &element{v, nil}
+	l.size++
 	return nil
 }
 
 func (l *list) popBack() int {
-	return 0
+	tmp := l.head
+	for tmp.next != nil {
+		tmp = tmp.next
+	}
+	last := tmp.value
+	l.size--
+	return last
 }
 
-func (l *list) size() int {
-	return 0
+func (l *list) len() int {
+	return l.size
 }
 
 func (l *list) find(v int) bool {
